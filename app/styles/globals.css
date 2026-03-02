@@ -1,0 +1,90 @@
+@import '@fontsource/space-grotesk';
+@import '@fontsource/space-mono';
+@import '@fontsource/inter';
+
+@font-face {
+  font-family: '演示新手书';
+  src: url('/fonts/演示新手书.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* 宇宙主题色彩 */
+  --deep-void: #050508;
+  --space-black: #0a0a0f;
+  --cosmic-navy: #1a1a2e;
+  --stellar-blue: #16213e;
+  --nebula-purple: #6366f1;
+  --aurora-cyan: #06b6d4;
+  --star-white: #ffffff;
+  --moon-gray: #a1a1aa;
+  --cosmic-dust: #6b7280;
+}
+
+@layer base {
+  body {
+    @apply bg-deep-void text-star-white font-inter;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-nebula-purple to-aurora-cyan;
+  }
+  
+  .bg-gradient-nebula {
+    @apply bg-gradient-to-b from-deep-void via-cosmic-navy/30 to-deep-void;
+  }
+  
+  .font-space-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  .font-space-mono {
+    font-family: 'Space Mono', monospace;
+  }
+  
+  .starfield {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-space-black;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-nebula-purple/50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-nebula-purple;
+  }
+  
+  /* 微交互效果 */
+  .hover-lift {
+    @apply transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-nebula-purple/20;
+  }
+}
