@@ -66,10 +66,10 @@ const Footer = () => {
             <h4 className="text-star-white font-bold mb-4">联系我们</h4>
             <ul className="space-y-2">
               <li className="text-moon-gray">
-                邮箱：contact@cosmic-explorers.com
+                邮箱：2958654899@qq.com
               </li>
               <li className="text-moon-gray">
-                地址：北京市海淀区中关村科技园区
+                地址：中国·福建
               </li>
             </ul>
           </div>

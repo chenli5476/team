@@ -33,7 +33,7 @@ export const teamMembers = [
     id: 2,
     name: '陈航朸',
     role: '团队交付负责人',
-    bio: '简历已提交，资质审核中',
+    bio: '负责项目最终交付物的品质审核与统筹技术文档，对外展示材料的优化与完善。确保团队成果以高水准呈现。具备灵活的技术协作能力，可支援前端开发工作。',
     skills: ['文档规范', 'PPT优化', '品质把控', '前端开发（辅助）'],
     avatar: 'https://neeko-copilot.bytedance.net/api/text2image?prompt=professional%20portrait%20of%20a%20quality%20control%20officer%20in%20space%20theme&size=512x512',
     color: '#06b6d4', // 品质=青
@@ -51,7 +51,7 @@ export const teamMembers = [
     id: 3,
     name: '张明月',
     role: '战略展示负责人',
-    bio: '简历已提交，资质审核中',
+    bio: '负责项目路演与投资人沟通，擅长将技术成果转化为清晰的商业价值表达，具备优秀的逻辑梳理与现场应变能力，是团队对外沟通的关键桥梁。',
     skills: ['PPT制作', '项目路演', '商业演讲', '战略规划'],
     avatar: 'https://neeko-copilot.bytedance.net/api/text2image?prompt=professional%20portrait%20of%20a%20female%20business%20presenter%20in%20space%20theme&size=512x512',
     color: '#f59e0b', // 演讲=橙

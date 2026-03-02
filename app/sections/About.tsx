@@ -150,7 +150,7 @@ const About = () => {
                       alt="科大讯飞AI微调工程师认证" 
                       className="w-full h-full object-cover rounded-lg"
                       onError={(e) => {
-                        console.error('科大讯飞AI微调工程师认证图片加载失败:', e.target.src);
+                        console.error('科大讯飞AI微调工程师认证图片加载失败:', (e.target as HTMLImageElement).src);
                       }}
                     />
                   </div>
@@ -166,7 +166,7 @@ const About = () => {
                       alt="科大讯飞AI智能体工程师认证" 
                       className="w-full h-full object-cover rounded-lg"
                       onError={(e) => {
-                        console.error('科大讯飞AI智能体工程师认证图片加载失败:', e.target.src);
+                        console.error('科大讯飞AI智能体工程师认证图片加载失败:', (e.target as HTMLImageElement).src);
                       }}
                     />
                   </div>
@@ -183,7 +183,7 @@ const About = () => {
                       alt="第18届RST大赛奖项" 
                       className="w-full h-full object-cover rounded-lg"
                       onError={(e) => {
-                        console.error('第18届RST大赛奖项图片加载失败:', e.target.src);
+                        console.error('第18届RST大赛奖项图片加载失败:', (e.target as HTMLImageElement).src);
                       }}
                     />
                   </div>
@@ -199,7 +199,7 @@ const About = () => {
                       alt="亚太杯数学建模三等奖" 
                       className="w-full h-full object-cover rounded-lg"
                       onError={(e) => {
-                        console.error('亚太杯数学建模三等奖图片加载失败:', e.target.src);
+                        console.error('亚太杯数学建模三等奖图片加载失败:', (e.target as HTMLImageElement).src);
                       }}
                     />
                   </div>

@@ -198,20 +198,12 @@ const GalaxyCore = () => {
       <pointLight position={[0, 0, 100]} intensity={1} color="#6366f1" />
       <mesh rotation={[0, Math.PI / 4, 0]}>
         <icosahedronGeometry args={[2, 5]} />
-        <motion.meshStandardMaterial
+        <meshStandardMaterial
           color="#6366f1"
           metalness={0.8}
           roughness={0.2}
           transparent
           opacity={0.8}
-          animate={{
-            rotateY: [0, Math.PI * 2],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
       </mesh>
     </Canvas>
@@ -448,112 +440,6 @@ const ScrollHint = () => {
   )
 }
 
-// 主页面组件
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  // 模拟加载过程
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  // 切换移动端菜单
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  return (
-    <div className="min-h-screen bg-gradient-space">
-      <Starfield />
-      <LoadingScreen isLoading={isLoading} />
-      <Navigation isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
-      
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
-        {/* 流星效果 */}
-        {[...Array(5)].map((_, index) => (
-          <ShootingStar key={index} />
-        ))}
-        
-        {/* 3D背景增强 */}
-        <div className="absolute inset-0 z-0">
-          <Canvas className="w-full h-full">
-            <Stars count={5000} radius={1000} depth={500} factor={4} saturation={0} fade />
-            <ambientLight intensity={0.1} />
-            <pointLight position={[0, 0, 100]} intensity={0.5} color="#6366f1" />
-          </Canvas>
-        </div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            <motion.h1 
-              className="text-5xl md:text-7xl lg:text-8xl font-space-grotesk font-bold mb-6 leading-tight"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.7 }}
-            >
-              <span className="gradient-text">探索</span>无限可能
-            </motion.h1>
-            
-            <motion.h2 
-              className="text-2xl md:text-3xl font-space-mono text-moon-gray mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.2 }}
-            >
-              Exploring the Digital Universe
-            </motion.h2>
-            
-            <motion.p 
-              className="text-xl md:text-2xl text-moon-gray mb-12 max-w-3xl mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.5 }}
-            >
-              We are a collective of creators, engineers, and visionaries<br />
-              building tomorrow's digital experiences.
-            </motion.p>
-            
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <motion.a
-                href="#projects"
-                className="px-8 py-4 bg-nebula-purple hover:bg-nebula-purple/80 text-white font-medium rounded-lg transition-all duration-300"
-                whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.8 }}
-              >
-                Enter the Void
-              </motion.a>
-              <motion.a
-                href="#team"
-                className="px-8 py-4 bg-transparent border border-nebula-purple hover:border-nebula-purple/80 text-white font-medium rounded-lg transition-all duration-300"
-                whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)' }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2 }}
-              >
-                View Our Work
-              </motion.a>
-            </div>
-          </motion.div>
-        </div>
-        
-        {/* 滚动提示 */}
-        <ScrollHint />
-      </section>
-      
 // 3D几何形状组件
 const GeometricShapes = () => {
   return (
@@ -565,156 +451,42 @@ const GeometricShapes = () => {
       {/* 二十面体 */}
       <mesh position={[0, 0, 0]}>
         <icosahedronGeometry args={[1, 2]} />
-        <motion.meshPhysicalMaterial
+        <meshPhysicalMaterial
           color="#6366f1"
           metalness={0.5}
           roughness={0.2}
           transmission={0.9}
           thickness={0.5}
-          animate={{
-            rotateY: [0, Math.PI * 2],
-            rotateX: [0, Math.PI * 2],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
       </mesh>
       
       {/* 环面 */}
       <mesh position={[2, 2, -2]}>
         <torusGeometry args={[0.5, 0.2, 16, 32]} />
-        <motion.meshPhysicalMaterial
+        <meshPhysicalMaterial
           color="#06b6d4"
           metalness={0.5}
           roughness={0.2}
           transmission={0.9}
           thickness={0.5}
-          animate={{
-            rotateY: [0, -Math.PI * 2],
-            rotateX: [0, -Math.PI * 2],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
       </mesh>
       
       {/* 立方体 */}
       <mesh position={[-2, -2, 2]}>
         <boxGeometry args={[1, 1, 1]} />
-        <motion.meshPhysicalMaterial
+        <meshPhysicalMaterial
           color="#ec4899"
           metalness={0.5}
           roughness={0.2}
           transmission={0.9}
           thickness={0.5}
-          animate={{
-            rotateY: [0, Math.PI * 2],
-            rotateX: [0, -Math.PI * 2],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
       </mesh>
     </Canvas>
   )
 }
 
-      {/* About Section */}
-      <section id="about" className="py-20 md:py-32">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* 左侧文字内容 */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-            >
-              <h3 className="text-lg font-space-mono text-nebula-purple mb-4">WHO WE ARE</h3>
-              <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold mb-8 gradient-text">
-                Pioneers of the Digital Frontier
-              </h2>
-              
-              <div className="space-y-8">
-                <div>
-                  <p className="text-lg text-star-white mb-4 leading-relaxed">
-                    We are a team of technical experts dedicated to solving complex problems through innovative technology. We believe that, just like space exploration, technological exploration requires courage, perseverance, and boundless curiosity.
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <span className="text-4xl font-space-grotesk font-bold text-aurora-cyan">50+</span>
-                    <span className="text-moon-gray">years of combined experience</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <p className="text-lg text-star-white mb-4 leading-relaxed">
-                    Our team members come from diverse technical backgrounds, bringing rich experience and expertise. We collaborate seamlessly, pursue excellence, and constantly challenge ourselves to explore the boundaries of technology.
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <span className="text-4xl font-space-grotesk font-bold text-nebula-purple">20+</span>
-                    <span className="text-moon-gray">completed projects</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <p className="text-lg text-star-white mb-4 leading-relaxed">
-                    Our goal is to create impactful products that deliver value to users while advancing technology. We believe that through collaboration and innovation, we can create technological solutions that change the world.
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <span className="text-4xl font-space-grotesk font-bold text-stellar-blue">10+</span>
-                    <span className="text-moon-gray">industry awards</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* 特色列表 */}
-              <div className="mt-12 space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-nebula-purple/20 flex items-center justify-center text-nebula-purple">
-                    🚀
-                  </div>
-                  <span className="text-star-white font-medium">Innovation-Driven</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-stellar-blue/20 flex items-center justify-center text-stellar-blue">
-                    🔭
-                  </div>
-                  <span className="text-star-white font-medium">Future-Focused</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-aurora-cyan/20 flex items-center justify-center text-aurora-cyan">
-                    ⚛️
-                  </div>
-                  <span className="text-star-white font-medium">Precision Engineering</span>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* 右侧3D几何形状 */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="h-96 md:h-[500px] bg-cosmic-navy/30 backdrop-blur-sm border border-nebula-purple/20 rounded-xl overflow-hidden relative"
-            >
-              <GeometricShapes />
-              {/* 背景网格线 */}
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#6366f111_1px,transparent_1px),linear-gradient(to_bottom,#6366f111_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      
 // 团队成员模态框组件
 const TeamMemberModal = ({ member, isOpen, onClose }: { member: any; isOpen: boolean; onClose: () => void }) => {
   return (
@@ -841,90 +613,6 @@ const SkillOrbit = ({ skills, color }: { skills: string[]; color: string }) => {
   )
 }
 
-      {/* Team Section */}
-      <section id="team" className="py-20 md:py-32 bg-gradient-nebula relative overflow-hidden">
-        {/* 星座连线背景 */}
-        <div className="absolute inset-0 z-0 opacity-20">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100,100 L300,150 L500,100 L700,200 L900,150" stroke="#6366f1" strokeWidth="1" fill="none" />
-            <path d="M200,300 L400,350 L600,300 L800,350" stroke="#6366f1" strokeWidth="1" fill="none" />
-            <path d="M150,500 L350,450 L550,500 L750,450" stroke="#6366f1" strokeWidth="1" fill="none" />
-          </svg>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold mb-4 gradient-text">
-              团队成员
-            </h2>
-            <p className="text-moon-gray text-lg max-w-2xl mx-auto">
-              我们的团队由一群充满激情和创造力的技术专家组成
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="relative group"
-              >
-                <motion.div
-                  className="bg-cosmic-navy/50 backdrop-blur-sm border border-nebula-purple/20 rounded-xl overflow-hidden hover:border-nebula-purple/50 transition-all duration-300 hover:shadow-lg hover:shadow-nebula-purple/20 p-6 text-center cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  {/* 技能图标环绕 */}
-                  <div className="w-48 h-48 mx-auto mb-6 relative">
-                    <SkillOrbit skills={member.skills} color={member.color} />
-                    
-                    {/* 头像 */}
-                    <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-nebula-purple/50">
-                      <img 
-                        src={member.avatar} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    
-                    {/* 发光环 */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        boxShadow: `0 0 20px ${member.color}`,
-                      }}
-                      animate={{
-                        boxShadow: [`0 0 20px ${member.color}`, `0 0 30px ${member.color}`, `0 0 20px ${member.color}`],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                      }}
-                    />
-                  </div>
-                  
-                  <h3 className="text-xl font-space-grotesk font-bold mb-2 text-star-white">
-                    {member.name}
-                  </h3>
-                  <p className="text-nebula-purple font-medium mb-4">{member.role}</p>
-                  <p className="text-moon-gray mb-6 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {member.bio}
-                  </p>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
 // 项目详情模态框组件
 const ProjectModal = ({ project, isOpen, onClose }: { project: any; isOpen: boolean; onClose: () => void }) => {
   return (
@@ -1012,81 +700,6 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any; isOpen: bool
   )
 }
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 md:py-32">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold mb-4 gradient-text">
-              项目展示
-            </h2>
-            <p className="text-moon-gray text-lg max-w-2xl mx-auto">
-              我们的项目体现了我们的技术实力和创新精神
-            </p>
-          </motion.div>
-          
-          {/* 水平滚动容器 */}
-          <div className="relative">
-            <div className="overflow-x-auto pb-8 -mx-4 px-4">
-              <div className="flex gap-8 min-w-max">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: index * 0.2 }}
-                    className="group relative w-80 md:w-96"
-                  >
-                    <motion.div
-                      className="bg-cosmic-navy/50 backdrop-blur-sm border border-nebula-purple/20 rounded-xl overflow-hidden hover:border-nebula-purple/50 transition-all duration-300 hover:shadow-lg hover:shadow-nebula-purple/20 cursor-pointer"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <div className="h-64 relative overflow-hidden">
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-space-black/80 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300"></div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                          <h3 className="text-xl font-space-grotesk font-bold text-star-white mb-2">
-                            {project.title}
-                          </h3>
-                          <p className="text-moon-gray text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 mb-4">
-                            {project.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            {project.tech.map((tech, techIndex) => (
-                              <span
-                                key={techIndex}
-                                className="px-3 py-1 bg-stellar-blue/20 text-stellar-blue text-xs rounded-full"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                    
-                    {/* 项目间的连接线 */}
-                    {index < projects.length - 1 && (
-                      <div className="absolute top-1/2 left-full w-8 h-0.5 bg-nebula-purple/30 transform -translate-y-1/2 hidden md:block"></div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
 // 技术轨道组件
 const SkillOrbitDisplay = ({ skills }: { skills: any[] }) => {
   // 分类技能
@@ -1187,6 +800,421 @@ const SkillOrbitDisplay = ({ skills }: { skills: any[] }) => {
   )
 }
 
+// 信号波动画组件
+const SignalWaves = () => {
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden">
+      {[1, 2, 3].map((index) => (
+        <motion.div
+          key={index}
+          className="absolute inset-0 border border-nebula-purple/30 rounded-full"
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.5, 0, 0.5],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: index * 1,
+          }}
+          style={{
+            transformOrigin: 'center',
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// 输入框组件
+const InputField = ({ label, type, placeholder }: { label: string; type: string; placeholder: string }) => {
+  return (
+    <div className="relative">
+      <input
+        type={type}
+        className="w-full bg-space-black border-b border-nebula-purple/30 text-star-white focus:outline-none focus:border-nebula-purple/80 transition-all duration-300 pb-2 pt-6"
+        placeholder=""
+      />
+      <label className="absolute left-0 top-4 text-moon-gray hover:text-nebula-purple transition-colors duration-300 text-sm">
+        {placeholder}
+      </label>
+    </div>
+  )
+}
+
+// 小飞船彩蛋组件
+const SpaceshipEasterEgg = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
+  return (
+    <motion.button
+      className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-nebula-purple/20 border border-nebula-purple/50 flex items-center justify-center text-nebula-purple cursor-pointer z-30"
+      whileHover={{ scale: 1.1, rotate: 10, boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }}
+      whileTap={{ scale: 0.9 }}
+      onClick={scrollToTop}
+    >
+      <span className="text-2xl">🚀</span>
+    </motion.button>
+  )
+}
+
+// 主页面组件
+export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // 模拟加载过程
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  // 切换移动端菜单
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-space">
+      <Starfield />
+      <LoadingScreen isLoading={isLoading} />
+      <Navigation isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
+      
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        {/* 流星效果 */}
+        {[...Array(5)].map((_, index) => (
+          <ShootingStar key={index} />
+        ))}
+        
+        {/* 3D背景增强 */}
+        <div className="absolute inset-0 z-0">
+          <Canvas className="w-full h-full">
+            <Stars count={5000} radius={1000} depth={500} factor={4} saturation={0} fade />
+            <ambientLight intensity={0.1} />
+            <pointLight position={[0, 0, 100]} intensity={0.5} color="#6366f1" />
+          </Canvas>
+        </div>
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            <motion.h1 
+              className="text-5xl md:text-7xl lg:text-8xl font-space-grotesk font-bold mb-6 leading-tight"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+            >
+              <span className="gradient-text">探索</span>无限可能
+            </motion.h1>
+            
+            <motion.h2 
+              className="text-2xl md:text-3xl font-space-mono text-moon-gray mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
+              Exploring the Digital Universe
+            </motion.h2>
+            
+            <motion.p 
+              className="text-xl md:text-2xl text-moon-gray mb-12 max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+            >
+              We are a collective of creators, engineers, and visionaries<br />
+              building tomorrow's digital experiences.
+            </motion.p>
+            
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <motion.a
+                href="#projects"
+                className="px-8 py-4 bg-nebula-purple hover:bg-nebula-purple/80 text-white font-medium rounded-lg transition-all duration-300"
+                whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.8 }}
+              >
+                Enter the Void
+              </motion.a>
+              <motion.a
+                href="#team"
+                className="px-8 py-4 bg-transparent border border-nebula-purple hover:border-nebula-purple/80 text-white font-medium rounded-lg transition-all duration-300"
+                whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 2 }}
+              >
+                View Our Work
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+        
+        {/* 滚动提示 */}
+        <ScrollHint />
+      </section>
+      
+      {/* About Section */}
+      <section id="about" className="py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* 左侧文字内容 */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+            >
+              <h3 className="text-lg font-space-mono text-nebula-purple mb-4">WHO WE ARE</h3>
+              <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold mb-8 gradient-text">
+                Pioneers of the Digital Frontier
+              </h2>
+              
+              <div className="space-y-8">
+                <div>
+                  <p className="text-lg text-star-white mb-4 leading-relaxed">
+                    We are a team of technical experts dedicated to solving complex problems through innovative technology. We believe that, just like space exploration, technological exploration requires courage, perseverance, and boundless curiosity.
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl font-space-grotesk font-bold text-aurora-cyan">50+</span>
+                    <span className="text-moon-gray">years of combined experience</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <p className="text-lg text-star-white mb-4 leading-relaxed">
+                    Our team members come from diverse technical backgrounds, bringing rich experience and expertise. We collaborate seamlessly, pursue excellence, and constantly challenge ourselves to explore the boundaries of technology.
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl font-space-grotesk font-bold text-nebula-purple">20+</span>
+                    <span className="text-moon-gray">completed projects</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <p className="text-lg text-star-white mb-4 leading-relaxed">
+                    Our goal is to create impactful products that deliver value to users while advancing technology. We believe that through collaboration and innovation, we can create technological solutions that change the world.
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl font-space-grotesk font-bold text-stellar-blue">10+</span>
+                    <span className="text-moon-gray">industry awards</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* 特色列表 */}
+              <div className="mt-12 space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-nebula-purple/20 flex items-center justify-center text-nebula-purple">
+                    🚀
+                  </div>
+                  <span className="text-star-white font-medium">Innovation-Driven</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-stellar-blue/20 flex items-center justify-center text-stellar-blue">
+                    🔭
+                  </div>
+                  <span className="text-star-white font-medium">Future-Focused</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-aurora-cyan/20 flex items-center justify-center text-aurora-cyan">
+                    ⚛️
+                  </div>
+                  <span className="text-star-white font-medium">Precision Engineering</span>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* 右侧3D几何形状 */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="h-96 md:h-[500px] bg-cosmic-navy/30 backdrop-blur-sm border border-nebula-purple/20 rounded-xl overflow-hidden relative"
+            >
+              <GeometricShapes />
+              {/* 背景网格线 */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#6366f111_1px,transparent_1px),linear-gradient(to_bottom,#6366f111_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Team Section */}
+      <section id="team" className="py-20 md:py-32 bg-gradient-nebula relative overflow-hidden">
+        {/* 星座连线背景 */}
+        <div className="absolute inset-0 z-0 opacity-20">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,100 L300,150 L500,100 L700,200 L900,150" stroke="#6366f1" strokeWidth="1" fill="none" />
+            <path d="M200,300 L400,350 L600,300 L800,350" stroke="#6366f1" strokeWidth="1" fill="none" />
+            <path d="M150,500 L350,450 L550,500 L750,450" stroke="#6366f1" strokeWidth="1" fill="none" />
+          </svg>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold mb-4 gradient-text">
+              团队成员
+            </h2>
+            <p className="text-moon-gray text-lg max-w-2xl mx-auto">
+              我们的团队由一群充满激情和创造力的技术专家组成
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className="relative group"
+              >
+                <motion.div
+                  className="bg-cosmic-navy/50 backdrop-blur-sm border border-nebula-purple/20 rounded-xl overflow-hidden hover:border-nebula-purple/50 transition-all duration-300 hover:shadow-lg hover:shadow-nebula-purple/20 p-6 text-center cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {/* 技能图标环绕 */}
+                  <div className="w-48 h-48 mx-auto mb-6 relative">
+                    <SkillOrbit skills={member.skills} color={member.color} />
+                    
+                    {/* 头像 */}
+                    <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-nebula-purple/50">
+                      <img 
+                        src={member.avatar} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    
+                    {/* 发光环 */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        boxShadow: `0 0 20px ${member.color}`,
+                      }}
+                      animate={{
+                        boxShadow: [`0 0 20px ${member.color}`, `0 0 30px ${member.color}`, `0 0 20px ${member.color}`],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                      }}
+                    />
+                  </div>
+                  
+                  <h3 className="text-xl font-space-grotesk font-bold mb-2 text-star-white">
+                    {member.name}
+                  </h3>
+                  <p className="text-nebula-purple font-medium mb-4">{member.role}</p>
+                  <p className="text-moon-gray mb-6 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {member.bio}
+                  </p>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Projects Section */}
+      <section id="projects" className="py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold mb-4 gradient-text">
+              项目展示
+            </h2>
+            <p className="text-moon-gray text-lg max-w-2xl mx-auto">
+              我们的项目体现了我们的技术实力和创新精神
+            </p>
+          </motion.div>
+          
+          {/* 水平滚动容器 */}
+          <div className="relative">
+            <div className="overflow-x-auto pb-8 -mx-4 px-4">
+              <div className="flex gap-8 min-w-max">
+                {projects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    className="group relative w-80 md:w-96"
+                  >
+                    <motion.div
+                      className="bg-cosmic-navy/50 backdrop-blur-sm border border-nebula-purple/20 rounded-xl overflow-hidden hover:border-nebula-purple/50 transition-all duration-300 hover:shadow-lg hover:shadow-nebula-purple/20 cursor-pointer"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="h-64 relative overflow-hidden">
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-space-black/80 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                          <h3 className="text-xl font-space-grotesk font-bold text-star-white mb-2">
+                            {project.title}
+                          </h3>
+                          <p className="text-moon-gray text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 mb-4">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            {project.tech.map((tech: string, techIndex: number) => (
+                              <span
+                                key={techIndex}
+                                className="px-3 py-1 bg-stellar-blue/20 text-stellar-blue text-xs rounded-full"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                    
+                    {/* 项目间的连接线 */}
+                    {index < projects.length - 1 && (
+                      <div className="absolute top-1/2 left-full w-8 h-0.5 bg-nebula-purple/30 transform -translate-y-1/2 hidden md:block"></div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Skills Section */}
       <section id="skills" className="py-20 md:py-32 bg-gradient-nebula">
         <div className="container mx-auto px-4">
@@ -1257,48 +1285,6 @@ const SkillOrbitDisplay = ({ skills }: { skills: any[] }) => {
         </div>
       </section>
       
-// 信号波动画组件
-const SignalWaves = () => {
-  return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
-      {[1, 2, 3].map((index) => (
-        <motion.div
-          key={index}
-          className="absolute inset-0 border border-nebula-purple/30 rounded-full"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.5, 0, 0.5],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            delay: index * 1,
-          }}
-          style={{
-            transformOrigin: 'center',
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-// 输入框组件
-const InputField = ({ label, type, placeholder }: { label: string; type: string; placeholder: string }) => {
-  return (
-    <div className="relative">
-      <input
-        type={type}
-        className="w-full bg-space-black border-b border-nebula-purple/30 text-star-white focus:outline-none focus:border-nebula-purple/80 transition-all duration-300 pb-2 pt-6"
-        placeholder=""
-      />
-      <label className="absolute left-0 top-4 text-moon-gray hover:text-nebula-purple transition-colors duration-300 text-sm">
-        {placeholder}
-      </label>
-    </div>
-  )
-}
-
       {/* Contact Section */}
       <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
         {/* 背景信号波 */}
@@ -1345,7 +1331,7 @@ const InputField = ({ label, type, placeholder }: { label: string; type: string;
                     </div>
                     <div>
                       <h4 className="text-star-white font-medium mb-1">Email</h4>
-                      <p className="text-moon-gray">contact@cosmicexplorers.com</p>
+                      <p className="text-moon-gray">2958654899@qq.com</p>
                     </div>
                   </div>
                   
@@ -1368,37 +1354,47 @@ const InputField = ({ label, type, placeholder }: { label: string; type: string;
                       <p className="text-moon-gray">@cosmic-explorers</p>
                     </div>
                   </div>
+                  
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-stellar-blue/20 flex items-center justify-center text-stellar-blue">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </div>
+                    <div>
+                      <h4 className="text-star-white font-medium mb-1">地址</h4>
+                      <p className="text-moon-gray">中国·福建</p>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="mt-12">
-                  <h4 className="text-star-white font-medium mb-4">Connect With Us</h4>
+                  <h4 className="text-lg font-bold mb-4 text-star-white">Connect With Us</h4>
                   <div className="flex gap-4">
                     <motion.a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-cosmic-navy/80 flex items-center justify-center text-moon-gray hover:text-nebula-purple transition-colors duration-300"
-                      whileHover={{ scale: 1.1, boxShadow: '0 0 10px rgba(99, 102, 241, 0.6)' }}
+                      className="w-10 h-10 rounded-full bg-nebula-purple/20 flex items-center justify-center text-nebula-purple hover:bg-nebula-purple/40 transition-colors"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                     >
-                      <Github size={18} />
+                      <Github size={20} />
                     </motion.a>
                     <motion.a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-cosmic-navy/80 flex items-center justify-center text-moon-gray hover:text-stellar-blue transition-colors duration-300"
-                      whileHover={{ scale: 1.1, boxShadow: '0 0 10px rgba(59, 130, 246, 0.6)' }}
+                      className="w-10 h-10 rounded-full bg-stellar-blue/20 flex items-center justify-center text-stellar-blue hover:bg-stellar-blue/40 transition-colors"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                     >
-                      <Linkedin size={18} />
+                      <Linkedin size={20} />
                     </motion.a>
                     <motion.a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-cosmic-navy/80 flex items-center justify-center text-moon-gray hover:text-aurora-cyan transition-colors duration-300"
-                      whileHover={{ scale: 1.1, boxShadow: '0 0 10px rgba(6, 182, 212, 0.6)' }}
+                      className="w-10 h-10 rounded-full bg-aurora-cyan/20 flex items-center justify-center text-aurora-cyan hover:bg-aurora-cyan/40 transition-colors"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                     >
-                      <Mail size={18} />
+                      <Mail size={20} />
                     </motion.a>
                   </div>
                 </div>
               </motion.div>
               
-              {/* 右侧通讯表单 */}
+              {/* 右侧联系表单 */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -1407,111 +1403,75 @@ const InputField = ({ label, type, placeholder }: { label: string; type: string;
                 className="bg-cosmic-navy/50 backdrop-blur-sm border border-nebula-purple/20 rounded-xl p-8"
               >
                 <h3 className="text-2xl font-space-grotesk font-bold mb-8 gradient-text">
-                  Send Transmission
+                  Send a Message
                 </h3>
                 
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputField label="姓名" type="text" placeholder="Your Name" />
-                    <InputField label="邮箱" type="email" placeholder="Your Email" />
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <InputField label="Name" type="text" placeholder="Your Name" />
+                    </div>
+                    <div>
+                      <InputField label="Email" type="email" placeholder="Your Email" />
+                    </div>
                   </div>
                   
-                  <InputField label="主题" type="text" placeholder="Subject" />
+                  <div>
+                    <InputField label="Subject" type="text" placeholder="Message Subject" />
+                  </div>
                   
-                  <div className="relative">
+                  <div>
+                    <label className="block text-moon-gray mb-2 text-sm">Message</label>
                     <textarea
-                      rows={5}
-                      className="w-full bg-space-black border-b border-nebula-purple/30 text-star-white focus:outline-none focus:border-nebula-purple/80 transition-all duration-300 pb-2 pt-6 resize-none"
-                      placeholder=""
-                    />
-                    <label className="absolute left-0 top-4 text-moon-gray hover:text-nebula-purple transition-colors duration-300 text-sm">
-                      Your Message
-                    </label>
+                      className="w-full bg-space-black border border-nebula-purple/30 text-star-white focus:outline-none focus:border-nebula-purple/80 transition-all duration-300 p-4 rounded-lg h-32"
+                      placeholder="Your Message"
+                    ></textarea>
                   </div>
                   
                   <motion.button
-                    type="submit"
-                    className="w-full bg-nebula-purple hover:bg-nebula-purple/80 text-white font-medium rounded-lg py-3 transition-all duration-300 mt-4"
+                    className="w-full py-4 bg-nebula-purple hover:bg-nebula-purple/80 text-white font-medium rounded-lg transition-all duration-300"
                     whileHover={{ scale: 1.02, boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Send Transmission
+                    Send Message
                   </motion.button>
-                </form>
+                </div>
               </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
       
-// 小飞船彩蛋组件
-const SpaceshipEasterEgg = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }
-
-  return (
-    <motion.button
-      className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-nebula-purple/20 border border-nebula-purple/50 flex items-center justify-center text-nebula-purple cursor-pointer z-30"
-      whileHover={{ scale: 1.1, rotate: 10, boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }}
-      whileTap={{ scale: 0.9 }}
-      onClick={scrollToTop}
-    >
-      <span className="text-2xl">🚀</span>
-    </motion.button>
-  )
-}
-
       {/* Footer */}
-      <footer className="py-12 bg-deep-void border-t border-nebula-purple/20 relative overflow-hidden">
-        {/* 地平线光效 */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-nebula-purple/50 to-transparent"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {/* Logo + Slogan */}
-            <div className="col-span-1">
-              <a href="#" className="text-2xl font-space-mono font-bold gradient-text mb-4 inline-block">
+      <footer className="py-12 bg-space-black border-t border-nebula-purple/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-2xl font-space-mono font-bold gradient-text mb-4">
                 宇宙探索者
-              </a>
-              <p className="text-moon-gray text-sm mb-6">
-                Exploring the Digital Universe
+              </h3>
+              <p className="text-moon-gray mb-6">
+                探索数字宇宙的无限可能，创造未来科技体验
               </p>
-              <div className="flex space-x-4">
-                <motion.a
-                  href="#"
-                  className="text-moon-gray hover:text-nebula-purple transition-colors duration-300"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                >
+              <div className="flex gap-4">
+                <a href="#" className="text-moon-gray hover:text-nebula-purple transition-colors">
                   <Github size={20} />
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="text-moon-gray hover:text-nebula-purple transition-colors duration-300"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                >
+                </a>
+                <a href="#" className="text-moon-gray hover:text-nebula-purple transition-colors">
                   <Linkedin size={20} />
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="text-moon-gray hover:text-nebula-purple transition-colors duration-300"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                >
+                </a>
+                <a href="#" className="text-moon-gray hover:text-nebula-purple transition-colors">
                   <Mail size={20} />
-                </motion.a>
+                </a>
               </div>
             </div>
             
-            {/* 快速链接 */}
-            <div className="col-span-1">
-              <h4 className="text-star-white font-medium mb-4">快速链接</h4>
+            <div>
+              <h4 className="text-lg font-bold text-star-white mb-4">快速链接</h4>
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.name}>
-                    <a href={link.href} className="text-moon-gray hover:text-nebula-purple transition-colors duration-300 text-sm">
+                    <a href={link.href} className="text-moon-gray hover:text-nebula-purple transition-colors">
                       {link.name}
                     </a>
                   </li>
@@ -1519,33 +1479,32 @@ const SpaceshipEasterEgg = () => {
               </ul>
             </div>
             
-            {/* 联系信息 */}
-            <div className="col-span-1">
-              <h4 className="text-star-white font-medium mb-4">联系我们</h4>
+            <div>
+              <h4 className="text-lg font-bold text-star-white mb-4">联系我们</h4>
               <ul className="space-y-2">
-                <li className="text-moon-gray text-sm">
-                  contact@cosmicexplorers.com
+                <li className="text-moon-gray">
+                  2958654899@qq.com
                 </li>
-                <li className="text-moon-gray text-sm">
+                <li className="text-moon-gray">
+                  中国·福建
+                </li>
+                <li className="text-moon-gray">
                   @cosmic-explorers
-                </li>
-                <li className="text-moon-gray text-sm">
-                  Cosmic Explorers Team
                 </li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t border-nebula-purple/20 pt-8 text-center">
-            <p className="text-moon-gray text-sm font-space-mono">
-              © 2026 宇宙探索者团队. All systems operational.
+          <div className="mt-12 pt-8 border-t border-nebula-purple/20 text-center">
+            <p className="text-moon-gray text-sm">
+              © 2024 宇宙探索者. All rights reserved.
             </p>
           </div>
         </div>
-        
-        {/* 小飞船彩蛋 */}
-        <SpaceshipEasterEgg />
       </footer>
+      
+      {/* 小飞船彩蛋 */}
+      <SpaceshipEasterEgg />
     </div>
   )
 }
